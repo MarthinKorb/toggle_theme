@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:toggle_theme/components/characters_card.dart';
+import 'package:http/http.dart' as http;
+import 'package:toggle_theme/models/character.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,12 +16,24 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool isSwitched = false;
 
+  List<dynamic> characters = [];
+
+  Future<List<dynamic>> _getCharacters() async {
+    final response =
+        await http.get('http://hp-api.herokuapp.com/api/characters');
+
+    characters = jsonDecode(response.body);
+
+    return characters;
+  }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ThemeModel>(
       create: (_) => ThemeModel(),
       child: Consumer<ThemeModel>(
         builder: (_, model, __) {
+          _getCharacters();
           return MaterialApp(
             theme: ThemeData.light(), // Provide light theme.
             darkTheme: ThemeData.dark(), // Provide dark theme.
@@ -24,7 +41,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             home: Scaffold(
               appBar: AppBar(
-                title: Text('Light/Dark Theme'),
+                title: Text('Harry Potter Characters'),
                 actions: [
                   Switch(
                     value: isSwitched,
@@ -38,19 +55,9 @@ class _MyAppState extends State<MyApp> {
                 ],
               ),
               body: Container(
-                child: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Switch Theme in Flutter!',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
-                  ),
+                height: 650,
+                child: CharacterCard(
+                  characters,
                 ),
               ),
             ),
