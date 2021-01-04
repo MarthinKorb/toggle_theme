@@ -20,11 +20,17 @@ class CharacterCard extends StatelessWidget {
               horizontal: 5,
             ),
             child: ListTile(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  child: AboutComp(ch),
+                );
+              },
               leading: Padding(
                 padding: const EdgeInsets.all(6),
                 child: Image.network(
                   ch['image'],
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                   width: 40,
                   height: 40,
                 ),
@@ -33,18 +39,7 @@ class CharacterCard extends StatelessWidget {
                 ch['name'],
               ),
               subtitle: Text(
-                  ch['house'] == '' ? 'House: none' : 'House: ${ch['house']}'),
-              trailing: IconButton(
-                icon: Icon(
-                  Icons.keyboard_arrow_right,
-                  color: Theme.of(context).primaryColor,
-                ),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    child: AboutComp(ch),
-                  );
-                },
+                ch['house'] == '' ? 'House: none' : 'House: ${ch['house']}',
               ),
             ),
           );

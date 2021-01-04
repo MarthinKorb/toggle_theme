@@ -12,42 +12,63 @@ class AboutComp extends StatelessWidget {
       padding: EdgeInsets.all(10.0),
       child: Card(
         child: Container(
-          width: 350,
-          height: 300,
-          color: Color.fromRGBO(0, 0, 0, 0.3),
+          width: 400,
+          height: 220,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                Container(
+                  height: 200,
+                  margin: EdgeInsets.only(right: 20),
                   child: Image.network(
                     character['image'],
-                    height: 130,
+                    fit: BoxFit.fitHeight,
                   ),
                 ),
-                Text(
-                  character['name'],
-                  overflow: TextOverflow.fade,
-                  style: TextStyle(fontSize: 20),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                FittedBox(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Wand',
-                        style: TextStyle(fontSize: 16),
+                      Container(
+                        margin: EdgeInsets.only(bottom: 20),
+                        child: Text(
+                          character['name'],
+                          overflow: TextOverflow.fade,
+                          style: TextStyle(fontSize: 20),
+                        ),
                       ),
                       Container(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Wood: ${character['wand']['wood']}'),
-                            Text('Core: ${character['wand']['core']}'),
-                            Text('Length: ${character['wand']['length']}'),
+                            Container(
+                              margin: EdgeInsets.only(top: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Patronus: ${character['ancestry']}'),
+                                  Text('Ancestry: ${character['patronus']}'),
+                                  Text(
+                                      'Date of birth: ${character['dateOfBirth']}'),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 10),
+                              alignment: Alignment.center,
+                              child: Column(
+                                children: [
+                                  Text('Wand', style: TextStyle(fontSize: 16)),
+                                  Text('Wood: ${character['wand']['wood']}'),
+                                  Text('Core: ${character['wand']['core']}'),
+                                  Text(
+                                      'Length: ${character['wand']['length']}'),
+                                ],
+                              ),
+                            )
                           ],
                         ),
                       ),
