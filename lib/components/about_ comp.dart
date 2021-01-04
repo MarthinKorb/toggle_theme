@@ -45,6 +45,9 @@ class AboutComp extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
+                              child: Text('Actor: ${character['actor']}'),
+                            ),
+                            Container(
                               margin: EdgeInsets.only(top: 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
